@@ -1,6 +1,6 @@
 {
   "name": "ethereum-units",
-  "version": "0.0.1b",
+  "version": "0.0.1b-detoo",
   "description": "Ethereum unit conversion",
   "main": "index.js",
   "bin": {
