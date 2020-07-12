@@ -6,13 +6,18 @@
 
     if (args.length < 2) {
         console.log('ethunits ' + pkg.version);
-        console.log('Usage: ethunits [-e] <fromAmount> <from Unit> [toUnit=ether]');
+        console.log('Usage: ethunits [-e] [-0] <fromAmount> <from Unit> [toUnit=ether]');
         return;
     }
 
     var eOptIdx = args.indexOf('-e');
     if (eOptIdx > -1) {
         args.splice(eOptIdx, 1);
+    }
+
+    var zeroOptIdx = args.indexOf('-0');
+    if (zeroOptIdx > -1) {
+        args.splice(zeroOptIdx, 1);
     }
 
     var fromUnit = args[1].toLowerCase();
@@ -27,10 +32,10 @@
     };
     if (!(fromUnit in converter.units)) invalidUnitErr(fromUnit);
     if (!(toUnit in converter.units)) invalidUnitErr(toUnit);
-    
-    var bd = require('bigdecimal');
+
+    var BigNumber = require('bignumber.js');
     try {
-        var fromAmount = new bd.BigDecimal(args[0]);
+        var fromAmount = BigNumber(args[0]);
 
     } catch (e) {
         console.error('Invalid number: ' + args[0]);
@@ -38,6 +43,7 @@
     }
 
     var res = converter.convert(fromAmount, fromUnit, toUnit);
-    console.log((eOptIdx > -1 ? res.toString() : res.toPlainString()) + ' ' + toUnit);
+    var toUnitStr = zeroOptIdx > -1 ? '' : ' ' + toUnit
+    console.log((eOptIdx > -1 ? res.toExponential() : res.toFixed()) + toUnitStr);
 
 }).call(this);

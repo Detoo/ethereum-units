@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/ryepdx/etheruem-units#readme",
   "dependencies": {
-    "bigdecimal": "^0.6.1"
+    "bignumber.js": "^9.0.0"
   }
 }
